@@ -1,0 +1,56 @@
+<% if current_user.has_role? :member, User %>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-header">
+          <h1>Your projects</h1>
+        </div>
+
+        <div class="table-responsive">  
+          <table class = "table table-bordered table-striped">
+           <thead>
+              <tr>
+                 <th width=100>Project Name</th>
+                 <th width=100>Team Name</th>
+                 <th width=80>Team size</th>
+                 <th width=150>Actions</th>
+              </tr>
+           </thead>
+           <tbody>
+              <% if team.projects.size == 0 %>
+                <tr>
+                  <td>No project Yet</td>
+                  <td align="center"><%= team.name %></td>
+                  <td align="center"><%= team.users.size %></td>
+                  <td><%= link_to "Create project", new_project_path %></td>
+                </tr>
+              <% else %>
+                <% no_active_projects = true %>
+                <% team.projects.each do |project| %>
+                  <% if project.is_active? %>
+                    <% no_active_projects = false %>
+                    <tr>
+                        <td><%= project.name %></td>
+                        <td><%= team.name %></td>
+                        <td><%= team.users.size %></td>
+                        <td>
+                          <%= link_to "View Project", project_path(project), class: "btn btn-primary" %>
+                        </td>
+                     </tr>
+                  <% end %>
+                <% end %>
+                <% if no_active_projects %>
+                  <td>No project Yet</td>
+                  <td align="center"><%= team.name %></td>
+                  <td align="center"><%= team.users.size %></td>
+                  <td><%= link_to "Create project", new_project_path %></td>
+                <% end %>
+              <% end %>
+           </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>  
+
+<% end %>

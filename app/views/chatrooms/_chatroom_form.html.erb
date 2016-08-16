@@ -1,0 +1,11 @@
+<div class="chatroom-form">
+  <%= form_for chatroom, remote: true do |f| %>
+    <div class="input-group">
+      <span class="input-group-addon">title:</span>
+      <%= f.text_field :title, class: "form-control"%>
+    </div>
+    <%= f.hidden_field :team_id, :value => @team.id %>
+    <br>
+    <%= f.submit class: "btn btn-primary", id: "create-chatroom" %>
+  <% end %>
+</div>

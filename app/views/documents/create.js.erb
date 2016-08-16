@@ -1,0 +1,3 @@
+$(".documents").html("<%= j(render partial: 'documents') %>");
+$("#flash").html("<%= j(render partial: 'shared/flash', locals: {flash: flash}) %>");
+$(".document_upload").html("<%= j(render inline: '') %>");

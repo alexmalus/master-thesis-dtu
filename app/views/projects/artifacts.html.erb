@@ -1,0 +1,34 @@
+<% if current_user.has_role? :member, @project %>	
+
+	<%= render :partial => 'sidebar', :object => @project %>
+
+	<div class="container-fluid">
+	  <div class="row">
+	    <div class="col-lg-12">
+				<div class="page-header">
+					<h1>Project Scrum Artifacts</h1>
+				</div>
+
+				<div id="chart-container1"></div>
+				<%= @chart1.render() %>
+				<br><br>
+
+				<div id="chart-container2"></div>
+				<%= @chart2.render() %>
+				<br><br>
+
+				<div id="chart-container3"></div>
+				<%= @chart3.render() %>
+
+				<!-- <h4>Choose different Sprint</h4><hr> -->
+	      <%#= form_tag(new_sprint_burndown_path, remote: true, class: "form-inline") do %>
+					<%#= select_tag "sprint_id", options_from_collection_for_select(@available_sprints,
+					 'id', 'name'), :id => 'sprint_id' %>
+		      <%#= hidden_field_tag :id, @project.id %>
+		      <%#= submit_tag "Submit", :class => "btn btn-primary" %>
+	   		<%# end %>
+	    </div>
+	  </div>
+	</div>
+
+<% end %>  

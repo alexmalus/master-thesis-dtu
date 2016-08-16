@@ -1,0 +1,45 @@
+<div class="col-md-3">
+	<div class="box">
+    <div class="box-header">
+    	<div class="pull-right">
+	    	<% if team_user.last_seen > 5.minutes.ago %>
+      		ONLINE
+      		<span data-blink>
+						<span class="glyphicon glyphicon-one-fine-dot"></span>
+      		</span>
+	      <% else %>
+	      	Last seen: <%= distance_of_time_in_words(Time.now, team_user.last_seen) %>
+	      <% end %>
+  		</div>
+			<div class="box-title pull-left">
+  			<b><h4><%= team_user.name %></h4></b>
+    	</div>
+
+    </div>
+		<div class="box-content">
+			<div id="box-content-description">
+				<span>
+  				<%= attachment_image_tag(team_user, :image, :fill, 80, 80, fallback: "default-avatar.jpg") %>
+				</span>
+			</div>
+    </div>
+		<!--end: BOX CONTENT-->
+  </div>
+	<!--end: BOX--> 
+</div>
+
+<script type="text/javascript">
+	// var value = false;
+	// setInterval(function(){  
+	//   value = !value;
+	//   $('[data-blink]').css('opacity', Number(value))
+	// }, 500)
+	// setInterval(function(){  
+    // color: rgb(random(255), random(255), random(255));
+	  random1 = Math.floor((Math.random() * 255) + 1);
+	  random2 = Math.floor((Math.random() * 255) + 1);
+	  random3 = Math.floor((Math.random() * 255) + 1);
+	  // $(this).css("background-color", "rgb(255," + shade + "," + shade + ")");
+	  $('[data-blink]').css('color', "rgb(" + random1 + "," + random2 + "," + random3 + ")");
+	// }, 500)
+</script>

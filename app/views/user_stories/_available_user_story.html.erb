@@ -1,0 +1,37 @@
+<tr>  
+  <td>
+  	<%= user_story.name %>
+  </td>
+  <td>
+  	<%= user_story.priority %>
+  </td>
+  <td>
+  	<%= user_story.effort %>
+  </td>
+  <td>
+  	<%= user_story.description %>
+  </td>
+  <td>
+  	<%= user_story.acceptance_condition %>
+  </td>
+  <td>
+    <% if user_story.sprint_backlog.nil? %>
+      Icebox
+    <% else %>
+      <%= user_story.sprint_backlog.sprint.name %>
+    <% end %>
+  </td>
+  <td>
+    <%= form_tag(transform_to_task_path, class: "form-inline") do %>
+      <%= select_tag "sprint_id", options_from_collection_for_select(@available_sprints,
+       'id', 'name'), :id => 'sprint_id' %>
+      <%= hidden_field_tag :user_story_id, user_story.id %>
+      <%= hidden_field_tag :id, @project.id %>
+      <%= submit_tag "Update", :class => "btn btn-primary" %>
+    <% end %>
+  </td>
+  <td>
+    <%= link_to "Integrate", integrate_user_story_path(:id => @project.id,
+     :user_story_id => user_story.id), :class => "btn btn-primary" %>
+  </td>
+</tr>

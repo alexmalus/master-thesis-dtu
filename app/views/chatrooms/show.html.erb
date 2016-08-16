@@ -1,0 +1,21 @@
+<% if current_user.has_role? :member, @team %>
+
+<div class="row col-md-8 col-md-offset-2">
+  <h1><%= @chatroom.title %></h1>
+  <h3><%= link_to "Back to Chatrooms", chatrooms_path(:team_id => @team.id), class: "btn btn-primary" %></h3>
+<div class="panel panel-default">
+  <% if @chatroom.messages.any? %>
+    <div class="panel-body" id="messages">
+      <%= render partial: 'messages/message', collection: @chatroom.messages%>
+    </div>
+  <%else%>
+    <div class="panel-body hidden" id="messages">
+    </div>
+  <%end%>
+</div>
+
+
+  <%= render partial: 'messages/message_form', locals: {message: @message, chatroom: @chatroom}%>
+</div>
+
+<% end %>

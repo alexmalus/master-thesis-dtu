@@ -1,0 +1,67 @@
+<% if current_user.has_role? :member, @project %>	
+
+	<%= render :partial => '/projects/sidebar', :object => @project %>
+
+	<div class="container-fluid">
+	  <div class="row">
+	    <div class="col-lg-12">
+	      <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Scrum Menu</a>
+
+				<div class="page-header">
+					<h1>Product backlog structure</h1>
+				</div>
+
+				<div id="flash"></div>
+
+				<div class="product_backlog_popup"></div>
+
+				<input type='button' id='theme_hideshow' value='Themes'>
+				<div class="themes">
+					<%= render :partial => 'themes/themes', :object => @themes, locals: {:project_id => @project.id} %>
+				</div>
+
+				<br>
+
+				<input type='button' id='epic_hideshow' value='Epics'>
+				<div class="epics">
+					<%= render :partial => 'epics/epics', :object => @epics, locals: {:project_id => @project.id} %>
+				</div>
+
+				<br>
+
+				<div class="icebox_user_stories">
+					<%= render :partial => 'user_stories/user_stories', locals: {:title => "Icebox user stories", 
+						:user_stories => @icebox_user_stories, :mvp_u_s => @mvp_user_story} %>
+				</div>
+
+				<div class="themes_user_stories">
+					<% if @themes.size != 0 %>
+						<h4>Themes user stories</h4><hr>
+					<% end %>
+					<% @themes.each do |theme| %>
+						<%= render :partial => 'user_stories/user_stories', locals: {:title => "User stories matching #{theme.name}",
+						 :user_stories => @theme_user_story[theme.id], :mvp_u_s => @mvp_themes[theme.id]} %>
+					<% end %>
+				</div>
+
+				<div class="epics_user_stories">
+					<% if @epics.size != 0 %>
+						<h4>Epics user stories</h4><hr>
+					<% end %>
+					<% @epics.each do |epic| %>
+						<%= render :partial => 'user_stories/user_stories', locals: {:title => "User stories matching #{epic.name}",
+						 :user_stories => @epic_user_story[epic.id], :mvp_u_s => @mvp_epics[epic.id]} %>
+					<% end %>
+				</div>
+
+				<br>
+	    </div>
+	  </div>
+	</div>
+<% end %>
+
+<script type="text/javascript">
+		$(".product_backlog_popup").hide();
+		$('#themes_content').hide();
+  	$('#epics_content').hide();
+</script>

@@ -1,0 +1,31 @@
+<% if documents.blank? %>
+    <tr>
+        <td>
+            <%= @resource_name %>
+        </td>
+        <td></td>
+        <td>No documents attached.</td>
+        <td></td>
+        <td></td>
+    </tr>
+<% else %>
+    <% documents.each do |document| %>
+        <tr>
+            <td>
+                <%= @resource_name %> 
+            </td>
+            <td>
+            	<%= document.file_filename %>
+            </td>
+            <td>
+            	<%= document.created_at %>
+            </td>
+            <td>
+            	<%= link_to "See file", attachment_url(document, :file), :target => "_blank", class: "btn btn-info" %>
+            </td>
+            <td>
+                <%= link_to 'Delete file', document, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-warning" %>
+            </td>
+        </tr>
+    <% end %>
+<% end %>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="Rails master_thesis_beta: development" uuid="12d4bd89-1aa3-4245-84c9-3f9c5ee4554e">
+      <first-sync>true</first-sync>
+      <user-name>pguser</user-name>
+      <user-password>dfdadfcbdfd9dfd9dfdddfc5dfd8dfce</user-password>
+    </data-source>
+    <data-source name="Rails master_thesis_beta: test" uuid="bd5e9a4d-0f07-47d1-b74e-e142561600a6">
+      <first-sync>true</first-sync>
+      <user-name>pguser</user-name>
+      <user-password>dfdadfcbdfd9dfd9dfdddfc5dfd8dfce</user-password>
+    </data-source>
+  </component>
+</project>

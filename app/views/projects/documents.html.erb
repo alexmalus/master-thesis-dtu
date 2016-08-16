@@ -1,0 +1,32 @@
+<% if current_user.has_role? :member, @project %>	
+
+	<%= render :partial => 'sidebar', :object => @project %>
+
+	<div class="container-fluid">
+	  <div class="row">
+	    <div class="col-lg-12">
+				<div id="flash"></div>
+
+	      <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Scrum Menu</a>
+
+				<div class="page-header">
+					<h2>Documents <small>Switch between different categories of uploaded documents</small></h2>
+				</div>
+
+				<div class="documents_navbar">
+					<%= render :partial => 'documents_navbar' %>
+				</div>
+
+				<div class="page-content">
+				  <div class="documents">
+				  	<%= render :partial => 'documents', :object => @documents %>
+				  </div>
+				  
+				  <div class="document_upload"></div>
+				</div>
+				<br>
+	    </div>
+	  </div>
+	</div>
+
+<% end %>  

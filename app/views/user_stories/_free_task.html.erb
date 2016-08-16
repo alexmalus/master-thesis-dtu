@@ -1,0 +1,55 @@
+<!-- <div class="container"> -->
+  <div class="col-md-3">
+    <div class="box">
+      <div class="box-header">
+        <div class="box-title pull-left">
+          <b><h4><%= task.name %></h4></b>
+        </div>
+
+        <div class="pull-right">
+          Priority:<%= task.priority %>
+          <%= link_to(assign_task_path(id: @project.id, user_story_id: task.id), 
+           :data => {:confirm => "Do you want to assign yourself this task?"}, 
+           :class => "btn btn-default btn-sm") do %>
+            <span class="glyphicon glyphicon-ok">
+          <% end %>
+        </div>
+      </div>
+      <div class="box-content">
+        <!-- <h4> -->
+        <div id="box-content-description">
+          <span>
+            Description:
+            <%= task.description.blank? ? "None" : task.description %>
+            <br>
+          </span>
+          <span>
+            Condition:
+            <%= task.acceptance_condition.blank? ? "None" : task.acceptance_condition %>
+            <br>
+          </span>
+          <span>
+            Sprint name:
+            <%= task.sprint_backlog.sprint.name %>
+          </span>
+        </div>
+          <span class="pull-right">
+            Effort:<%= task.effort %>
+          </span>
+        <!-- </h4> -->
+      </div>
+      <!--end: BOX CONTENT-->
+    </div>
+    <!--end: BOX--> 
+  </div>
+<!-- </div> -->
+
+<script type="text/javascript">
+$(function() {
+    $('#box-content-description').textfill({
+      minFontPixels: 6,
+      maxFontPixels: 10
+    });
+});
+</script> 
+<!-- sprint -->

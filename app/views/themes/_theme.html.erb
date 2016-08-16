@@ -1,0 +1,11 @@
+<% if current_user.has_role? :member, @project %>
+  <tr>
+    <td><%= theme.name %></td>
+    <td><%= theme.description %></td>
+    <td>
+      <%= link_to 'Edit',  edit_theme_path(theme), remote: true, class: "btn btn-primary" %>
+      <%= link_to 'Destroy',  theme_path(theme) , method: :delete, 
+         data: { confirm: 'Are you sure?' }, remote: true, class: "btn btn-primary" %>
+    </td>
+  </tr>
+<% end %>

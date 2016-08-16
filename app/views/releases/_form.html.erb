@@ -1,0 +1,62 @@
+<%= form_for @release, remote: true do |f| %>
+  <% if @release.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@release.errors.count, "error") %> prohibited this release from being saved:</h2>
+
+      <ul>
+      <% @release.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, autofocus: true, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :description %>
+      <%= f.text_area :description, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label "Attach sprint to release" %>
+      <%= select_tag "sprint_id", options_from_collection_for_select(@project.sprints, "id", "name"), 
+       :class => "sprint_id", include_blank: true %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :status %>
+      <% if @edit %>
+        <%= f.text_field :status, @release.status, :disabled => true, class: 'form-control' %>
+      <% else %>
+        <%= f.select :status, Release.statuses.keys.to_a, :selected => @release.status, class: 'form-control' %>
+      <% end %>
+    </div>
+
+  	<%= f.hidden_field :project_id, :value => @project.id %>
+
+    <br>
+    <%= f.submit "Submit", id: "submit_button", disabled: true, class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.sprint_id').change(function() {
+      var empty = false;
+      if ($(this).val() == '' || $(this).val() == null) {
+        empty = true;
+      }
+
+      if (empty) {
+        $('#submit_button').attr('disabled', 'disabled');
+      } else {
+        $('#submit_button').removeAttr('disabled');
+      }
+    });
+  })
+</script>

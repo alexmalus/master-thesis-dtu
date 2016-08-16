@@ -1,0 +1,79 @@
+<h4><%= @desired_resource %></h4>
+
+<div class="table-responsive">  
+   <table class = "table table-bordered table-striped">
+      <thead>
+         <tr>
+            <th>Resource name</th>
+            <th>Name</th>
+            <th>Upload date</th>
+            <th>Download</th>
+            <th>Delete</th>
+         </tr>
+      </thead>
+      <tbody>
+   		<% if @attachment_type %>
+   			<% case @attachment_type %>
+   				<% when "all_user_story_documents" %>
+   					<% if @user_stories.blank? %>
+   						<tr>
+   							<td>No User stories made.</td>
+   						</tr>
+   					<% else %>
+   						<% @user_stories.each do |user_story| %>
+                        <% if session[:see_only_active] %>
+                           <% if user_story.status != "inactive" %>
+                              <% @documents = user_story.documents %>
+                              <% @resource_name = user_story.name %>
+                              <%= render :partial => 'all_documents', locals: {documents: @documents} %>
+                           <% end %>
+                        <% else %>
+                           <% @documents = user_story.documents %>
+                           <% @resource_name = user_story.name %>
+                           <%= render :partial => 'all_documents', locals: {documents: @documents} %>
+                        <% end %>
+                     <% end %>
+   					<% end %>
+               <% when "specific_user_story_documents" %>
+                  <% @resource_name = @user_story.name %>
+                  <%= render :partial => 'all_documents', locals: {documents: @documents} %>
+               <% when "all_release_documents" %>
+                  <% if @releases.blank? %>
+                     <tr>
+                        <td>No releases made.</td>
+                     </tr>
+                  <% else %>
+                     <% @releases.each do |release| %>
+                        <% @documents = release.documents %>
+                        <% @resource_name = release.name %>
+                        <%= render :partial => 'all_documents', locals: {documents: @documents} %>
+                     <% end %>
+                  <% end %>
+               <% when "specific_release_documents" %>
+                  <% @resource_name = @release.name %>
+                  <%= render :partial => 'all_documents', locals: {documents: @documents} %>
+               <% when "all_sprint_documents" %>
+                  <% if @sprints.blank? %>
+                     <tr>
+                        <td>No sprints made.</td>
+                     </tr>
+                  <% else %>
+                     <% @sprints.each do |sprint| %>
+                        <% @documents = sprint.documents %>
+                        <% @resource_name = sprint.name %>
+                        <%= render :partial => 'all_documents', locals: {documents: @documents} %>
+                     <% end %>
+                  <% end %>
+               <% when "specific_sprint_documents" %>
+                  <% @resource_name = @sprint.name %>
+                  <%= render :partial => 'all_documents', locals: {documents: @documents} %>
+               <% else %>
+                  <%= render :partial => 'all_documents', locals: {documents: @documents} %>
+ 				<% end %>
+         <% end %>
+      </tbody>
+   </table>
+</div>
+
+<%= link_to 'Upload new document', new_document_path(:project_id => @project.id, 
+   :attachment_type => @attachment_type, :resource_id => @resource_id), remote: true, class: "btn btn-primary" %>

@@ -1,0 +1,30 @@
+<div id="themes_content" class="table-responsive">
+  <table class = "table table-bordered table-striped">
+     <thead>
+        <tr>
+           <th>Name</th>
+           <th>Description</th>
+           <th>Actions</th>
+        </tr>
+     </thead>
+     <tbody>
+        <% if @themes.empty? %>
+          <tr>
+            <td></td>
+            <td align="center">No themes yet</td>
+            <td></td>
+          </tr>
+        <% else %>
+            <% @themes.each do |theme| %>
+              <% if theme.is_active? %>
+        			 <%= render :partial => 'themes/theme', :object => theme %>
+              <% end %>
+            <% end %>
+        <% end %>
+     </tbody>
+  </table>
+
+	<%= link_to "Create Theme", new_theme_path(project_id: project_id), remote: true, class: "btn btn-primary" %>
+
+  <br>
+</div>

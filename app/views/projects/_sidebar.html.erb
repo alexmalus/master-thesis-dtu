@@ -1,0 +1,35 @@
+<div id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+        <li class="sidebar-brand">
+            <a href="#">
+              Scrum Menu
+            </a>
+        </li>
+        <li>
+            <%= link_to "Story Map", {controller: "projects", action: "story_map", id: @project.id} %>
+        </li>
+        <li>
+            <%= link_to "Backlog", {controller: "product_backlogs", action: "show", id: @project.id} %>
+        </li>
+        <li>
+            <%= link_to "Plan", {controller: "projects", action: "plan", id: @project.id} %>
+        </li>
+        <li>
+            <%= link_to "Work", {controller: "projects", action: "work", id: @project.id} %>
+        </li>
+        <li>
+            <%= link_to "Retrospective", {controller: "projects", action: "retrospective", id: @project.id} %>
+        </li>
+        <li>
+            <%= link_to "Artifacts", {controller: "projects", action: "artifacts", id: @project.id} %>
+        </li>
+        <li>
+            <%= link_to "Documents", {controller: "projects", action: "documents", id: @project.id} %>
+        </li>
+        <li>
+            <% if (current_user.has_role? :scrum_master, @project) || (current_user.has_role? :product_owner, @project) %>  
+                <%= link_to "Edit Project", edit_project_path(@project) %>
+            <% end %>
+        </li>
+    </ul>
+</div>

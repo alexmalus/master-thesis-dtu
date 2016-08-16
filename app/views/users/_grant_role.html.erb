@@ -1,0 +1,67 @@
+<% if can? :grant_role, User %>
+  <center>
+    <br>
+    <h3>Add roles to Users</h3>
+
+    <%= link_to 'Usage', '#' , :data => {:confirm => 'Note it is recommended to have ONE Product Owner or Scrum master per project/Team owner per team'}, :class => 'btn btn-warning' %>
+    <%= form_tag(grant_role_path, remote: true, class: "form-inline") do %>
+      <div class="form-group">
+        <%= label_tag 'Choose user to give role to' %>
+        <%= select_tag "user_id", options_from_collection_for_select(@users, 'id', 'email'), :id => 'users_id' %>
+      </div>
+
+      <div class="form-group">
+        <%= label_tag 'Designate a Role' %>
+        <%= select_tag(:role, options_for_select(@roles, 1)) %>
+      </div>
+
+      <div class="form-group">
+        <div id="designated_objects1">
+        <%= label_tag 'To which project?' %>
+        <%= select_tag "project_id", options_from_collection_for_select(@projects, 
+           'id', 'name'), include_blank: true, :id => 'project_id' %>
+        </div>
+        <div id="designated_objects2">
+          <%= label_tag 'To which team?' %>
+          <%= select_tag "team_id", options_from_collection_for_select(@teams,
+           'id', 'name'), include_blank: true, :id => 'team_id' %>
+        </div>
+      </div>
+
+      <%= submit_tag 'Apply role', class: "btn btn-primary" %>
+    <% end %>
+  </center>
+<% end %>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+      $('#designated_objects1').hide();
+      $('#designated_objects2').hide();
+    });
+    $('#role').bind('change', function() {
+      var selection = $(this).val();
+      console.log(selection);
+      switch (selection) {
+        case "admin":
+          $('#designated_objects1').hide();
+          $('#designated_objects2').hide();
+          break;
+        case "product_owner":
+          $('#designated_objects1').show();
+          $('#designated_objects2').hide();
+          break;
+        case "team_owner":
+          $('#designated_objects1').hide();
+          $('#designated_objects2').show();
+          break;
+        case "scrum_master":
+          $('#designated_objects1').show();
+          $('#designated_objects2').hide();
+          break;
+        case "member":
+          $('#designated_objects1').show();
+          $('#designated_objects2').show();
+          break;
+      } 
+    }).change();
+</script>

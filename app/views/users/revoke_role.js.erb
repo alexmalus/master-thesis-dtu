@@ -1,0 +1,3 @@
+$(".user_add_roles").html("<%= j(render partial: 'grant_role') %>");
+$(".user_revoke_roles").html("<%= j(render partial: 'revoke_role') %>");
+$("#flash").html("<%= j(render partial: 'shared/flash', locals: {flash: flash}) %>");

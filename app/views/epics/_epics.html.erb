@@ -1,0 +1,30 @@
+<div id="epics_content" class="table-responsive">
+  <table class = "table table-bordered table-striped">
+     <thead>
+        <tr>
+           <th>Name</th>
+           <th>Description</th>
+           <th>Actions</th>
+        </tr>
+     </thead>
+     <tbody>
+        <% if @epics.empty? %>
+          <tr>
+            <td></td>
+            <td align="center">No epics yet</td>
+            <td></td>
+          </tr>
+        <% else %>
+            <% @epics.each do |epic| %>
+              <% if epic.is_active? %>
+        			 <%= render :partial => 'epics/epic', :object => epic %>
+              <% end %>
+            <% end %>
+        <% end %>
+     </tbody>
+  </table>
+
+	<%= link_to "Create Epic", new_epic_path(project_id: project_id), remote: true, class: "btn btn-primary" %>
+
+  <br>
+</div>

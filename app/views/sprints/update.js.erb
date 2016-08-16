@@ -1,0 +1,4 @@
+$("#flash").html("<%= j(render partial: 'shared/flash', locals: {flash: flash}) %>");
+$(".project_popup").hide();
+$(".releases").html("<%= j(render partial: 'releases/releases', :object => @releases, locals: {project_id: @project.id}) %>");
+$(".sprints").html("<%= j(render partial: 'sprints', :object => @sprints, locals: {project_id: @project.id}) %>");

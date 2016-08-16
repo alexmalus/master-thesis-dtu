@@ -1,0 +1,23 @@
+<% if current_user.has_role? :member, User %>	
+
+	<div class="container-fluid">
+	  <div class="row">
+	    <div class="col-lg-12">
+				<div class="page-header">
+					<h1>New Project <small> Must be attached to a team</small></h1>
+				</div>
+
+				<% if @teams.size == 0 %>
+				  <h3>Create/Join a team first!</h3><br>
+				  <%= link_to "Create Team", new_team_path, class: "btn btn-primary" %>
+				<% else %>
+					<%= render 'form', project: @project %>
+				<% end %>
+				<br><br>
+
+				<%= link_to 'Back', projects_path, class: "btn btn-primary" %>
+	    </div>
+	  </div>
+	</div>
+
+<% end %>  

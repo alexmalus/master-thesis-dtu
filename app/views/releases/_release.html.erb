@@ -1,0 +1,15 @@
+<% if current_user.has_role? :member, @project %>
+  <tr>
+    <td><%= release.name %></td>
+    <td><%= release.description %></td>
+    <td><%= release.documents.size %></td>
+    <td><%= release.status %></td>
+    <td>
+      <% if current_user.has_role? :product_owner, @project %>
+        <%= link_to 'Edit',  edit_release_path(release), remote: true, class: "btn btn-primary" %>
+        <%= link_to 'Destroy',  release_path(release) , method: :delete, 
+         data: { confirm: 'Are you sure?' }, remote: true, class: "btn btn-primary" %>
+      <% end %>
+    </td>
+  </tr>
+<% end %>

@@ -1,0 +1,49 @@
+<!-- <div class="container"> -->
+	<div class="col-md-3">
+		<div class="box">
+	    <div class="box-header">
+	    	<% if user_story.id == mvp_u_s.id %>
+	      	<div class="pull-left">
+						<span class="glyphicon glyphicon-star"></span>
+		  		</div>
+	      <% end %>
+
+				<div class="box-title pull-left">
+	  			<b><h4><%= user_story.name %></h4></b>
+	    	</div>
+
+	    	<div class="pull-right">
+		    	Priority:<%= user_story.priority %>
+          <%= link_to(edit_user_story_path(user_story), {remote: true, :class => "btn btn-default btn-sm"}) do %>
+				  	<span class="glyphicon glyphicon-pencil">
+					<% end %>
+          <%= link_to(user_story_path(user_story), {method: :delete, data: { confirm: 'Are you sure you want to set it as inactive?' }, 
+           :class => "btn btn-danger"}) do %>
+				  	<span class="glyphicon glyphicon-remove">
+					<% end %>
+        </div>
+	    </div>
+			<div class="box-content">
+				<!-- <h4> -->
+				<div id="box-content-description">
+					<span>
+						<%= user_story.description %>
+					</span>
+				</div>
+					<span class="pull-right">
+						Effort:<%= user_story.effort %>
+					</span>
+	    	<!-- </h4> -->
+	    </div>
+			<!--end: BOX CONTENT-->
+    </div>
+		<!--end: BOX--> 
+	</div>
+<!-- </div> -->
+
+<script type="text/javascript">
+$(function() {
+    $('#box-content-description').textfill({
+    });
+});
+</script>	

@@ -1,0 +1,9 @@
+<% if @available_sprints.empty? %>
+	<h4>Available sprints</h4><hr>
+	No available sprints yet..
+<% else %>
+	<% @available_sprints.each do |sprint| %>
+		<% @sprint_name = sprint.name %>
+		<%= render :partial => 'user_stories/available_sprint', locals: {sprint_backlog: sprint.sprint_backlog} %>
+	<% end %>
+<% end %>

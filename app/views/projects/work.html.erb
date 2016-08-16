@@ -1,0 +1,58 @@
+<% if current_user.has_role? :member, @project %>	
+
+	<%= render :partial => 'sidebar', :object => @project %>
+
+	<div class="container-fluid">
+	  <div class="row">
+	    <div class="col-lg-12">
+	      <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Scrum Menu</a>
+
+				<div id="flash"></div>
+
+				<div class="project_popup"%></div>
+				
+				<% if (current_user.has_role? :product_owner, @project) || (current_user.has_role? :scrum_master, @project) %>
+					<div class="page-header">
+						<h2><%= current_user.name %>, create tasks or, if needed, split user stories into tasks!</h2>
+					</div>
+
+					<br>
+					<!-- 
+						Product Owner OR Scrum master can keep adding tasks to sprints that are not started yet
+						They can view tasks for started sprint/finished ones, but not edit them
+					 -->
+					<div class="user_stories">
+						<%= render :partial => 'user_stories/available_user_stories' %>
+					</div>
+
+					<br>
+
+					<div class="tasks">
+						<%= render :partial => 'user_stories/sprint_tasks' %>
+					</div>
+
+					<%= link_to "Create task", create_task_path(:id => @project.id), remote: true, :class => "btn btn-primary" %>
+				<% elsif current_user.has_role? :member, @project %>
+					<div class="page-header">
+						<h2><%= current_user.name %>, choose what work you'd like to start working on!</h2>
+					</div>
+
+					<br>
+
+					<div class="free_tasks">
+						<%= render :partial => 'user_stories/free_tasks' %>
+					</div>
+
+					<div class="own_tasks">
+						<%= render :partial => 'user_stories/own_tasks' %>
+					</div>
+				<% end %>
+	    </div>
+	  </div>
+	</div>
+
+<% end %>
+
+<script type="text/javascript">
+		$(".project_popup").hide();
+</script>  

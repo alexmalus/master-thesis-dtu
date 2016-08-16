@@ -1,0 +1,2 @@
+$(".team_invitations").html("<%= j(render partial: 'team_invitations', :object => @team_invitations) %>");
+$("#flash").html("<%= j(render partial: 'shared/flash', locals: {flash: flash}) %>");

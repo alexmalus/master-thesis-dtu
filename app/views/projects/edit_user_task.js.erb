@@ -1,0 +1,3 @@
+$("#flash").html("<%= j(render partial: 'shared/flash', locals: {flash: flash}) %>");
+$(".project_popup").show();
+$(".project_popup").html("<%= j(render partial: 'user_stories/edit_user_task') %>");

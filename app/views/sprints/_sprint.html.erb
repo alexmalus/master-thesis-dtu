@@ -1,0 +1,16 @@
+<% if current_user.has_role? :member, @project %>
+  <tr>
+    <td><%= sprint.name %></td>
+    <td><%= sprint.start_date %></td>
+    <td><%= sprint.release_date %></td>
+    <td><%= sprint.documents.size %></td>
+    <td><%= sprint.status %></td>
+    <td>
+      <% if (current_user.has_role? :product_owner, @project) || (current_user.has_role? :scrum_master, @project) %>
+        <%= link_to 'Edit',  edit_sprint_path(sprint), remote: true, class: "btn btn-primary" %>
+        <%= link_to 'Destroy',  sprint_path(sprint) , method: :delete, 
+         data: { confirm: 'Are you sure?' }, remote: true, class: "btn btn-primary" %>
+      <% end %>
+    </td>
+  </tr>
+<% end %>

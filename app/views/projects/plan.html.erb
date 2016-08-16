@@ -1,0 +1,29 @@
+<% if current_user.has_role? :member, @project %>	
+
+	<%= render :partial => 'sidebar', :object => @project %>
+
+	<div class="container-fluid">
+	  <div class="row">
+	    <div class="col-lg-12">
+				<div id="flash"></div>
+
+	      <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Scrum Menu</a>
+
+				<div class="page-header">
+					<h2>Project planning<small> Find User Stories a home they belong</small></h2>
+				</div>
+
+				<!-- icebox with all unsigned user_stories -->
+				<div class="icebox">
+					<%= render :partial => 'icebox', locals: {unassigned_user_stories: @unassigned_user_stories} %>
+				</div>
+
+				<div class="available_sprints">
+					<!-- each sprint backlog with its user_stories, if the sprint is not started, then the user_stories can be moved back to the icebox-->
+					<%= render :partial => 'user_stories/available_sprints' %>
+				</div>
+	    </div>
+	  </div>
+	</div>
+
+<% end %>  

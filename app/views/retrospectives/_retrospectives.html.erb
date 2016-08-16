@@ -1,0 +1,32 @@
+<h2>Retrospectives from past sprints</h2><hr>
+
+<div class="table-responsive">  
+  <table class = "table table-bordered table-striped">
+   <thead>
+    <tr>
+     <th>Name</th>
+     <th>Positive Things</th>
+     <th>Misfortunate Things</th>
+     <th>Things to consider</th>
+    </tr>
+   </thead>
+   <tbody>
+    <% if @finished_sprints.size == 0 %>
+      <tr>
+        <td></td>
+        <td></td>
+        <td align="center">No finished/cancelled sprints yet</td>
+        <td></td>
+      </tr>
+    <% else %>
+      <div class="projects">
+        <% @finished_sprints.each do |sprint| %>
+          <% if sprint.retrospective %>
+            <%= render :partial => 'retrospectives/retrospective', :object => sprint.retrospective %>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+   </tbody>
+  </table>
+</div>

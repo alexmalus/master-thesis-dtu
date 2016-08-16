@@ -1,0 +1,28 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12">
+			<% content_for :top_content do %>
+				<div class="jumbotron">
+					<div class="container">
+						<% if user_signed_in? %>
+							<h1>Welcome back <%= current_user.name %>!</h1>
+							<%#= image_tag current_user.image_url(:thumb) if current_user.image_url %>
+							<% if @teams.size == 0 %>
+								<h3>You do not have any teams yet </h3>
+								<%= link_to "Create new Team", new_team_path %>
+							<% else %>
+								<%= render :partial => "project_summary", collection: @teams, as: :team %>
+							<% end %>
+						<% else %>
+							<h1>Welcome Guest!</h1>
+							<p>Register to get started.</p>
+							<p>
+								<%= link_to 'Register', new_user_registration_path, class: 'btn btn-primary btn-lg' %>
+							</p>
+						<% end %>
+					</div>
+				</div>
+			<% end %>
+    </div>
+  </div>
+</div>  

@@ -1,0 +1,70 @@
+<%= form_for @task, :url => create_task_path(@task), :html => {:method => :post} do |f| %>
+  <div class="actions">
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, autofocus: true, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :description %>
+      <%= f.text_area :description, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :acceptance_condition %>
+      <%= f.text_area :acceptance_condition, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :priority %>
+      <%= f.text_field :priority, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :effort %>
+      <%= f.select :effort, @efforts, :selected => @task.effort %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :sprint %>
+      <%= select_tag "sprint_id", options_from_collection_for_select(@available_sprints, "id", "name"), :class => "sprint_id" %>
+    </div>
+
+    <%= hidden_field_tag :id, @project.id %>
+
+    <div class="form-group">
+      <%= f.submit "Submit", class: "btn btn-primary", id: "submit_button" %>
+    </div>
+
+    <div class="form-group">
+      <%= link_to 'Close', {controller: "projects", action: "close_popup"},
+      remote: true, class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    var sprint_value = $('.sprint_id').val();
+    if (sprint_value == '' || sprint_value == null)
+    {
+      $('#submit_button').attr('disabled', 'disabled');
+    } else {
+      console.log(sprint_value);
+      $('#submit_button').removeAttr('disabled');
+    }
+
+    $('.sprint_id').change(function() {
+      var empty = false;
+      if ($(this).val() == '' || $(this).val() == null) {
+        empty = true;
+      }
+
+      if (empty) {
+        $('#submit_button').attr('disabled', 'disabled');
+      } else {
+        $('#submit_button').removeAttr('disabled');
+      }
+    });
+  })
+</script>

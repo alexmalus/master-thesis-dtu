@@ -1,0 +1,3 @@
+$("#flash").html("<%= j(render partial: 'shared/flash', locals: {flash: flash}) %>");
+$(".product_backlog_popup").hide();
+$(".epics").html("<%= j(render partial: 'epics', :object => @epics, locals: {:project_id => @project.id}) %>");

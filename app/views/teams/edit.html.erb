@@ -1,0 +1,33 @@
+<% if current_user.has_role? :member, @team %>	
+
+	<div class="container-fluid">
+	  <div class="row">
+	    <div class="col-lg-12">
+				<div class="page-header">
+					<h1>Edit Team</h1>
+				</div>
+
+				<div id="flash"></div>
+
+				<% if current_user.has_role? :team_owner, @team %>
+					<h1>Editing Team</h1>
+
+					<%= render 'form', team: @team %>
+
+					<br><br>
+
+					<div class="team_members">
+						<%= render :partial => "team_members", :object => @team.users, locals: {:team => @team} %>
+					</div>
+
+					<br><br>
+					<%= link_to 'Show Team', @team, class: "btn btn-primary" %>
+					<%= spaces(5).html_safe %>
+					<%= link_to 'Back', teams_path, class: "btn btn-primary" %>
+
+				<% end %>
+	    </div>
+	  </div>
+	</div>
+
+<% end %>  

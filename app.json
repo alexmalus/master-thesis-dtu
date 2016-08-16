@@ -1,0 +1,8 @@
+{
+  "name": "Heroku docker file",
+  "description": "A needed file for heroku-docker pushes to work",
+  "image": "heroku/ruby",
+  "addons": [
+    "heroku-postgresql"
+  ]
+}

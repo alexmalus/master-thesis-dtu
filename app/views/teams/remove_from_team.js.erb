@@ -1,0 +1,2 @@
+$(".team_members").html("<%= j(render partial: 'team_members', :object => @team.users, locals: {:team_id => @team.id}) %>");
+$("#flash").html("<%= j(render partial: 'shared/flash', locals: {flash: flash}) %>");

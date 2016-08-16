@@ -1,0 +1,27 @@
+<tr>	
+	<td>
+		<%= user_story.name %>
+	</td>
+	<td>
+		<%= user_story.priority %>
+	</td>
+	<td>
+		<%= user_story.effort %>
+	</td>
+	<td>
+		<%= user_story.description %>
+	</td>
+	<td>
+		<%= user_story.acceptance_condition %>
+	</td>
+	<td>
+		<%= user_story.sprint_backlog.sprint.name %>
+	</td>
+	<td>
+		<%= link_to "Edit Task", edit_task_path(:id => @project.id,
+	   :user_story_id => user_story.id), remote: true, :class => "btn btn-primary" %>
+
+	  <%= link_to "Delete Task", delete_task_path(:id => @project.id,
+	   :user_story_id => user_story.id), :data => {:confirm => "Are you sure?"}, :class => "btn btn-primary" %>
+	</td>
+</tr>

@@ -1,0 +1,80 @@
+<!-- Weird..form with ajax makes the params incompatible with strong params..maybe rails issue due how it's still in development? -->
+<%#= form_for @user_story, remote: true do |f| %>
+<%= form_for @user_story do |f| %>
+  <% if @user_story.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user_story.errors.count, "error") %> prohibited this user_story from being saved:</h2>
+
+      <ul>
+      <% @user_story.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, autofocus: true, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :description %>
+      <%= f.text_area :description, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :acceptance_condition %>
+      <%= f.text_area :acceptance_condition, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :priority %>
+      <%= f.text_field :priority, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :effort %>
+      <%= f.select :effort, @efforts, :selected => @user_story.effort %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :documents_files %>
+      <%= f.attachment_field :documents_files, multiple: true %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :sprint %>
+      <% if !@available_sprints.empty? %>
+        <%= select_tag "sprint_id", options_from_collection_for_select(@available_sprints,
+           'id', 'name'), include_blank: true, :id => 'sprint_id' %>
+      <% else %>
+        No available sprints yet
+      <% end %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :epic %>
+      <% if @epics.nil? %>
+        No epics made
+      <% else %>
+        <%= f.collection_select(:epic_id, @epics, :id, :name, :prompt => true) %>
+      <% end %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :theme %>
+      <% if @themes.nil? %>
+        No themes made
+      <% else %>
+        <%= f.collection_select(:theme_id, @themes, :id, :name, :prompt => true) %>
+      <% end %>
+    </div>
+
+  	<%= hidden_field_tag :product_backlog_id, @product_backlog.id %>
+
+    <br>
+    <%= f.submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>

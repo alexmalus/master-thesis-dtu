@@ -1,0 +1,86 @@
+<%= form_for @sprint, remote: true do |f| %>
+  <% if @sprint.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sprint.errors.count, "error") %> prohibited this sprint from being saved:</h2>
+
+      <ul>
+      <% @sprint.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, autofocus: true, class: 'form-control' %>
+    </div>
+
+    <%= f.label "Starting date" %>
+    <% if @edit %>
+      Previous started Date:<%= @sprint.start_date.strftime("%m/%d/%Y") %>
+    <% end %>
+    <div class='input-group date' id='datetimepicker1'>
+      <%= f.text_field "start_date", :id=> :start_date, :class => "form-control" %> 
+      <span class="input-group-addon">
+          <span class="glyphicon glyphicon-calendar"></span>
+      </span>
+    </div>
+
+    <br>
+
+    <%= f.label "Ending date" %>
+    <% if @edit %>
+      Previous ending Date:<%= @sprint.release_date.strftime("%m/%d/%Y") %>
+    <% end %>
+    <div class='input-group date' id='datetimepicker2'>
+      <%= f.text_field "release_date", :id=> :release_date, :class => "form-control" %> 
+      <span class="input-group-addon">
+          <span class="glyphicon glyphicon-calendar"></span>
+      </span>
+    </div>
+
+    <!-- <div id="start_date" data-startdate="<%= @sprint.start_date %>"></div> -->
+    <!-- <div id="release_date" data-releasedate="<%= @sprint.release_date %>"></div> -->
+
+    <% if @edit %>
+      <br>
+      <div class="form-group">
+        <%= f.label :status %>
+        <%= f.select :status, @statuses.keys, :selected => @sprint.status,
+         class: 'form-control' %>
+
+        <%= link_to 'i', '#' , data: { :confirm => "Once you start the sprint, you cannot add more user stories to it. Proceed when you're ready" }, :class => "btn btn-info" %>
+      </div>
+    <% end %>
+
+    <%= f.hidden_field :project_id, :value => @project.id %>
+
+    <br>
+    <%= f.submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  $(function () {
+      // var start_date = $('#start_date').data('startdate')
+      // console.log(start_date)
+      // var release_date = $('#release_date').data('releasedate')
+      // console.log(release_date)
+      // var div_start_date = document.getElementById("start_date");
+      // var start_date = div_start_date.getAttribute("data-startdate");
+      // console.log(start_date)
+      $('#datetimepicker1').datetimepicker({
+        // defaultDate: start_date,
+        minDate: moment(),
+        format: 'MMMM Do YYYY, h:mm'
+      });
+      $('#datetimepicker2').datetimepicker({
+        // defaultDate: release_date,
+        minDate: moment(),
+        format: 'MMMM Do YYYY, h:mm'
+      });
+  });
+</script>

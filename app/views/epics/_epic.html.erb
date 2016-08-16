@@ -1,0 +1,11 @@
+<% if current_user.has_role? :member, @project %>
+  <tr>
+    <td><%= epic.name %></td>
+    <td><%= epic.description %></td>
+    <td>
+      <%= link_to 'Edit',  edit_epic_path(epic), remote: true, class: "btn btn-primary" %>
+      <%= link_to 'Destroy',  epic_path(epic) , method: :delete, 
+       data: { confirm: 'Are you sure?' }, remote: true, class: "btn btn-primary" %>
+    </td>
+  </tr>
+<% end %>

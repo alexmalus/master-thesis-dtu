@@ -1,0 +1,7 @@
+<h4>Editing User story</h4>
+
+<%= render 'form', user_story: @user_story %>
+
+<br>
+<%= link_to 'Close', {controller: "product_backlogs", action: "close_popup"},
+ remote: true, class: "btn btn-primary" %>

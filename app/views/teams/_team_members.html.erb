@@ -1,0 +1,30 @@
+<h1>Team members</h1>
+<div class="table-responsive">  
+  <table class = "table table-bordered table-striped">
+     <thead>
+        <tr>
+           <th>Name</th>
+           <th>Actions</th>
+        </tr>
+     </thead>
+     <tbody>
+        <% team_members.each do |member| %>
+          <% if member != current_user %>
+            <tr>
+              <td><%= member.name %></td>
+              <td>
+                <center>
+                  <%= link_to "View user profile", {:controller => :users, :action => :show_profile, 
+                    :user_id => member.id}, class: "btn btn-primary" %>
+                  <% if current_user.has_role? :team_owner, team %>
+                    <%= link_to 'Remove from team', {:action => :remove_from_team, 
+                    :user_id => member.id, :team_id => team.id}, data: { confirm: 'Are you sure?' }, remote: true, class: "btn btn-primary" %>
+                  <% end %>
+                </center>
+              </td>
+           </tr>
+          <% end %>
+        <% end %>
+     </tbody>
+  </table>
+</div>

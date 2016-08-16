@@ -1,0 +1,25 @@
+<% if current_user.has_role? :admin %>	
+
+	<div class="container-fluid">
+	  <div class="row">
+	    <div class="col-lg-12">
+				<div class="page-header">
+					<h1>User management</h1>
+				</div>
+
+				<div id="flash"></div>
+
+				<div class="container-fluid">
+					<%= content_tag :div, class: "user_add_roles"  do -%>
+				    <%= render( :partial => 'users/grant_role') %>
+				  <% end -%>
+
+				  <%= content_tag :div, class: "user_revoke_roles"  do -%>
+				    <%= render( :partial => 'users/revoke_role') %>
+				  <% end -%>
+				</div>
+	    </div>
+	  </div>
+	</div> 
+
+<% end %> 

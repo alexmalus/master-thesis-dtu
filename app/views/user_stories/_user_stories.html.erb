@@ -1,0 +1,31 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box">
+				<div class="box-header">
+					<div class="box-title pull-left">
+            <h4><%= title %></h4>
+          </div>
+          <% if title == "Icebox user stories" %>
+	          <div class="pull-right">
+							<%= link_to "Create User story", new_user_story_path(product_backlog_id: @product_backlog.id), 
+							 remote: true, class: "btn btn-primary" %>
+	          </div>
+	         <% end %>
+				</div>
+				<div class="box-content">
+					<% if user_stories.empty? %>
+						<h4>No user stories present.</h4><br>
+					<% else %>
+							<!-- allow priority positioning -->
+							<% user_stories.each do |user_story| %>
+					      	<%= render :partial => 'user_stories/user_story', :object => user_story, :locals => {:mvp_u_s => mvp_u_s} %>
+							<% end %>
+					<% end %>
+        </div>
+				<!--end: BOX CONTENT-->
+			</div>
+			<!--end: BOX--> 
+		</div>
+	</div>
+</div>

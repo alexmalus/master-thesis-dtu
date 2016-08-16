@@ -1,0 +1,7 @@
+<h4>New Sprint</h4>
+
+<%= render 'form', sprint: @sprint %>
+
+<br>
+<%= link_to 'Close', {controller: "projects", action: "close_popup"},
+ remote: true, class: "btn btn-primary" %>

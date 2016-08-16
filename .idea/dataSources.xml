@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="1077921858">
+    <data-source source="LOCAL" name="Rails master_thesis_beta: development" uuid="12d4bd89-1aa3-4245-84c9-3f9c5ee4554e">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://127.0.0.1/speedUP_dev</jdbc-url>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="Rails master_thesis_beta: test" uuid="bd5e9a4d-0f07-47d1-b74e-e142561600a6">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://127.0.0.1/speedUP_test</jdbc-url>
+      <libraries />
+    </data-source>
+  </component>
+</project>

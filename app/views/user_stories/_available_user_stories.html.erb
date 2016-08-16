@@ -1,0 +1,26 @@
+<h4>Available user stories</h4><hr>
+<% if @available_user_stories.empty? %>
+		No available user stories yet..
+<% else %>
+	<div class="table-responsive">  
+		<table class = "table table-bordered table-striped">
+		  <thead>
+	     <tr>
+	        <th>Name</th>
+	        <th>Priority</th>
+	        <th>Effort</th>
+	        <th>Description</th>
+	        <th>Condition of acceptance</th>
+	        <th>Belongs</th>
+	        <th>Transform <%= link_to 'i', '#' , data: { :confirm => 'Once you proceed with this step, the system assumes that the chosen user story is simple enough and can be TRANSFORMED into a task' }, :class => "btn btn-info" %></th>
+	        <th>Integrate <%= link_to 'i', '#' , data: { :confirm => 'Once you proceed with this step, the system assumes that tasks have been made starting from this user story. The user story now becomes INTEGRATED with the sprint, serving as a useful information for the retrospective meeting' }, :class => "btn btn-info" %></th>
+	     </tr>
+		  </thead>
+		  <tbody>
+				<% @available_user_stories.each do |user_story| %>
+					<%= render :partial => 'user_stories/available_user_story', locals: {user_story: user_story} %>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+<% end %>

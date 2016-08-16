@@ -1,0 +1,2 @@
+$("#flash").html("<%= j(render partial: 'shared/flash', locals: {flash: flash}) %>");
+$(".epics").html("<%= j(render partial: 'epics', :object => @epics, locals: {:project_id => @project.id}) %>");

@@ -1,0 +1,88 @@
+<% if can? :revoke_role, User %>
+  <br>
+  <center>
+    <h3>Remove roles from Users</h3>
+    <div class="table-responsive">  
+      <table class = "table table-bordered table-striped">
+         <thead>
+            <tr>
+               <th>Avatar</th>
+               <th>Name</th>
+               <th>Student number</th>
+               <th>Email</th>
+               <th>Role management</th>
+            </tr>
+         </thead>
+         <tbody>
+            <% @users.each do |user| %>
+              <tr>
+                <td>
+                  <% if user.image_url %>
+                    <%= image_tag user.image_url(:thumb) %>
+                  <% else %>
+                    Not uploaded
+                  <% end %>
+                </td>
+                <td><%= user.name %></td>
+                <td><%= user.student_number || "Not provided" %></td>
+                <td><%= user.email %></td>
+                <td>
+                  <% if user.roles.any? %>
+                    <% user.roles.each do |role| %>
+                      <table class = "table table-bordered table-striped">
+                        <thead>
+                          <tr>
+                             <th>Name</th>
+                             <th>Assigned to</th>
+                             <th>Remove</th>
+                          </tr>
+                       </thead>
+                       <tbody>
+                         <tr>
+                           <td>
+                            <%= role.name %>
+                           </td>
+                            <% if role.resource_type.nil? %>
+                           <td>
+                              Global assignment
+                           </td>
+                           <td>
+                             <%= link_to 'revoke', revoke_role_path(:user_id => user.id, :role => role.name), 
+                              :data => {confirm: "Are you sure you want to remove the role #{role.name} from #{user.name}?"}, remote: true %>
+                           </td>
+                            <% else %>
+                              <td>
+                                <% if role.resource_id %>
+                                  <% chosen_team = Team.where(:id => role.resource_id) %>
+                                  <% if !chosen_team.empty? %>
+                                     <%= chosen_team.name %>
+                                  <% else %>
+                                    <% chosen_project = Project.find(role.resource_id) %>
+                                    <% if chosen_project %>
+                                      <%= chosen_project.name %>
+                                    <% end %>
+                                  <% end %>
+                                <% else %>
+                                <%= role.resource_type %>
+                                set Globally
+                                <% end %>
+                             </td>
+                             <td>
+                               <%= link_to 'revoke', revoke_role_path(:user_id => user.id, :role => role.name, 
+                                :resource_type => role.resource_type, :resource_id => role.resource_id), 
+                                :data => {confirm: "Are you sure you want to remove the role #{role.name} from #{user.name}?"}, remote: true %>
+                             </td>
+                            <% end %>
+                         </tr>
+                       </tbody>
+                      </table>
+                    <% end %>
+                  <% end %>
+                </td>
+               </tr>
+            <% end %>
+         </tbody>
+      </table>
+    </div>
+  </center>
+<% end %>

@@ -1,0 +1,70 @@
+<h4>Sprint '<%= @sprint_name %>' with its user stories</h4>
+
+<div class="table-responsive">  
+   <table class = "table table-bordered table-striped">
+      <thead>
+         <tr>
+            <th>Name</th>
+            <th>Priority</th>
+            <th>Effort</th>
+            <th>Description</th>
+            <th>Condition of acceptance</th>
+            <th>Move to icebox</th>
+         </tr>
+      </thead>
+      <tbody>
+      	<% if sprint_backlog.user_stories.empty? %>
+          <tr>
+        		<td></td>
+        		<td></td>
+        		<td>
+        			Sprint does not have attached to it any user stories!
+        		</td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
+          </tr>
+      	<% else %>
+          <% none_assigned = true %>
+	       <% sprint_backlog.user_stories.each do |user_story| %>
+            <% if user_story.status == "assigned" %>
+              <% none_assigned = false %>
+              <tr>
+    	          <td>
+    	          	<%= user_story.name %>
+    	          </td>
+    	          <td>
+    	          	<%= user_story.priority %>
+              	</td>
+    	          <td>
+    	          	<%= user_story.effort %>
+    	          </td>
+    	          <td>
+    	          	<%= user_story.description %>
+    	          </td>
+    	          <td>
+    	          	<%= user_story.acceptance_condition %>
+    	          </td>
+    	          <td>
+            			<%= link_to "Move to Icebox", move_user_story_to_icebox_path(:id => @project.id,
+                   :user_story_id => user_story.id), remote: true, :class => "btn btn-primary" %>
+    	          </td>
+              </tr>
+	          <% end %>
+	       <% end %>
+         <% if none_assigned %>
+          <tr>
+            <td></td>
+            <td></td>
+            <td>
+              No available user stories..
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+         <% end %>
+	      <% end %>
+      </tbody>
+   </table>
+</div>

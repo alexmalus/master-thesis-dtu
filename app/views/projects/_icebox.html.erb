@@ -1,0 +1,58 @@
+<h4>Unassigned user stories</h4>
+
+<div class="table-responsive">  
+   <table class = "table table-bordered table-striped">
+      <thead>
+         <tr>
+            <th>Name</th>
+            <th>Priority</th>
+            <th>Effort</th>
+            <th>Description</th>
+            <th>Condition of acceptance</th>
+            <th>Move to sprint</th>
+         </tr>
+      </thead>
+      <tbody>
+      	<% if unassigned_user_stories.empty? %>
+      		<td></td>
+      		<td></td>
+      		<td>
+      			No available user stories!
+      		</td>
+      		<td></td>
+      		<td></td>
+      		<td></td>
+      		<td></td>
+      	<% else %>
+          <% unassigned_user_stories.each do |user_story| %>
+            <tr>
+  	          <td>
+  	          	<%= user_story.name %>
+  	          </td>
+  	          <td>
+  	          	<%= user_story.priority %>
+            	</td>
+  	          <td>
+  	          	<%= user_story.effort %>
+  	          </td>
+  	          <td>
+  	          	<%= user_story.description %>
+  	          </td>
+  	          <td>
+  	          	<%= user_story.acceptance_condition %>
+  	          </td>
+  	          <td>
+                <%= form_tag(move_user_story_to_sprint_path, remote: true, class: "form-inline") do %>
+            			<%= select_tag "sprint_id", options_from_collection_for_select(@available_sprints,
+            			 'id', 'name'), :id => 'sprint_id' %>
+                  <%= hidden_field_tag :user_story_id, user_story.id %>
+                  <%= hidden_field_tag :id, @project.id %>
+                  <%= submit_tag "Update", :class => "btn btn-primary" %>
+  	            <% end %>
+              </td>
+            </tr>
+	         <% end %>
+	        <% end %>
+      </tbody>
+   </table>
+</div>

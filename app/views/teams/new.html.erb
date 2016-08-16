@@ -1,0 +1,18 @@
+<% if current_user.has_role? :member, User %>	
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12">
+			<div class="page-header">
+				<h1>New Team</h1>
+			</div>
+
+			<%= render 'form', team: @team %>
+
+			<br>
+			<%= link_to 'Back', teams_path, class: "btn btn-primary" %>
+    </div>
+  </div>
+</div>
+
+<% end %> 

@@ -1,0 +1,8 @@
+<% if current_user.has_role? :member, @project %> 
+
+	<p id="notice"><%= notice %></p>
+
+	<%= link_to 'Edit', edit_retrospective_path(@retrospective) %> |
+	<%= link_to 'Back', retrospectives_path %>
+
+<% end %>

@@ -1,0 +1,52 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12">
+      <% if current_user.has_role? :member, @project %>
+
+        <%= render :partial => 'sidebar', :object => @project %>
+
+        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Scrum Menu</a>
+
+        <div class="page-header">
+          <h1>Project Details</h1>
+        </div>
+
+        <div class="table-responsive">  
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+               <th width=100>Project Logo</th>
+               <th width=100>Project Name</th>
+               <th>Project Description</th>
+               <th>Product Owner</th>
+               <th>Scrum Master</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if @project.is_active? %>
+                <tr>
+                  <td>
+                    <%#= image_tag @project.image_url(:thumb) if @project.image %>
+                    <%= attachment_image_tag(@project, :image, :fill, 80, 80) %>
+                  </td>
+                  <td><%= @project.name %></td>
+                  <td><%= @project.description %></td>
+                  <td><%= @product_owner.name %></td>
+                  <td>
+                    <% if @scrum_master.nil? %>
+                      None
+                    <% else %>
+                      <%= @scrum_master.name %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+             </tbody>
+          </table>
+        </div>
+      <% end %>
+
+    <%= link_to 'Back to Projects', projects_path, class: "btn btn-primary" %>
+    </div>
+  </div>
+</div>

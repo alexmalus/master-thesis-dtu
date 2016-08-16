@@ -1,0 +1,7 @@
+<% flash.each do |key, value| %>
+  <% if !value.nil? && !value.empty? %>
+    <%= content_tag :div, class: "alert alert-#{key}" do -%>
+        <%= content_tag(:span, value, class: "FlashNotice") %>
+    <% end -%>
+  <% end %>
+<% end %>

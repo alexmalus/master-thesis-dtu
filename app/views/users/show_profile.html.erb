@@ -1,0 +1,42 @@
+<% if current_user.has_role? :member, User %>  
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-header">
+          <h1>User information</h1>
+        </div>
+
+        <div class="table-responsive">  
+          <table class = "table table-bordered table-striped">
+             <thead>
+                <tr>
+                  <th>Avatar</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Student number</th>
+                  <th>Skype</th>
+                  <th>Phone number</th>
+                </tr>
+             </thead>
+             <tbody>
+                <tr>
+                  <td>
+                    <%= attachment_image_tag(@user, :image, :fill, 80, 80, fallback: "default-avatar.jpg") %>
+                  </td>
+                  <td><%= @user.name %></td>
+                  <td><%= @user.email %></td>
+                  <td><%= @user.student_number || 'Not provided' %></td>
+                  <td><%= @user.skype || 'Not provided' %></td>
+                  <td><%= @user.phone_number || 'Not provided' %></td>
+               </tr>
+             </tbody>
+          </table>
+        </div>
+
+        <%= link_to 'Back', url_for(:back) || teams_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+
+<% end %> 

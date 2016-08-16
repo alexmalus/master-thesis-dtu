@@ -1,0 +1,28 @@
+<h4>Editing Task status for <%= @task.name %></h4>
+<br>
+
+<%= form_for @task, :url => edit_user_task_path(@task), :html => {:method => :post} do |f| %>
+  <div class="actions">
+
+    <div class="form-group">
+      <%= f.label :status %>
+      <% if @edit %>
+        <%= f.select :status, @statuses, autofocus: true, :selected => @task.status %>
+      <% else %>
+        <%= f.text_field :status, @task.status, :disabled => true, class: 'form-control' %>
+      <% end %>
+    </div>
+
+    <%= hidden_field_tag :id, @project.id %>
+    <%= hidden_field_tag :user_story_id, @task.id %>
+
+    <div class="form-group">
+      <%= f.submit "Update", class: "btn btn-primary" %>
+    </div>
+
+    <div class="form-group">
+      <%= link_to 'Close', {controller: "projects", action: "close_popup"},
+      remote: true, class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,42 @@
+<h1>Invitation to teams</h1>
+<div class="table-responsive">  
+  <table class = "table table-bordered table-striped">
+     <thead>
+        <tr>
+           <th>Invited by</th>
+           <th>Team name</th>
+           <th>Team description</th>
+           <th>Team size</th>
+           <th>Actions</th>
+        </tr>
+     </thead>
+     <tbody>
+        <% if team_invitations.size == 0 %>
+          <tr>
+            <td></td>
+            <td></td>
+            <td align="center">No new requests</td>
+            <td></td>
+            <td></td>
+          </tr>
+        <% else %>
+          <% team_invitations.each do |invitation| %>
+            <% if invitation.is_active %>
+              <tr>
+                  <td><%= invitation.sender.name %></td>
+                  <td><%= invitation.team.name %></td>
+                  <td><%= invitation.team.description[0,20] %></td>
+                  <td><%= invitation.team.users.size %></td>
+                  <td>
+                    <%= link_to "Accept invite", {:action => :accept_invite, 
+                      :invitation_id => invitation.id}, remote: true, class: "btn btn-primary" %>
+                    <%= link_to 'Refuse invite', {:action => :refuse_invite, 
+                      :invitation_id => invitation.id}, data: { confirm: 'Are you sure?' }, remote: true, class: "btn btn-primary" %>
+                  </td>
+               </tr>
+            <% end %>
+          <% end %>
+        <% end %>
+     </tbody>
+  </table>
+</div>

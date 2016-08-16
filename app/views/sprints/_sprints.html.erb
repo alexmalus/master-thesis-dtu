@@ -1,0 +1,36 @@
+<div id="sprints_content" class="table-responsive">
+  <table class = "table table-bordered table-striped">
+     <thead>
+        <tr>
+           <th>Name</th>
+           <th>Date started</th>
+           <th>Date ending</th>
+           <th>No. Documents</th>
+           <th>Status</th>
+           <th>Actions</th>
+        </tr>
+     </thead>
+     <tbody>
+        <% if @sprints.empty? %>
+          <tr>
+            <td></td>
+            <td></td>
+            <td align="center">No sprints yet</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        <% else %>
+          <% @sprints.each do |sprint| %>
+           <%= render :partial => 'sprints/sprint', :object => sprint %>
+          <% end %>
+        <% end %>
+     </tbody>
+  </table>
+
+  <% if (current_user.has_role? :product_owner, @project) || (current_user.has_role? :scrum_master, @project) %>
+  	<%= link_to "Create Sprint", new_sprint_path(:project_id => project_id), remote: true, class: "btn btn-primary" %>
+  <% end %>
+
+  <br>
+</div>

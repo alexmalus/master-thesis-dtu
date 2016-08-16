@@ -1,0 +1,45 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12">
+			<% if current_user.has_role? :member, @team %>	
+				<div class="page-header">
+					<h2>
+						Team name: <%= @team.name %>
+						<br>
+						Team description: <%= @team.description %>
+					</h2>
+				</div>
+
+				<div class="box">
+						<div class="box-header">
+							<div class="box-title pull-left">
+		            <h4>Team members</h4>
+		          </div>
+		        </div>
+		        <div class="box-content">
+							<% if @team.users.size == 1 %>
+								<h4>You do not have any team members yet</h4><br>
+							<% else %>
+								<% @team.users.map do |user| %>
+									<% if current_user.id != user.id %>
+					      		<%= render :partial => 'team_user', :object => user %>
+									<% end %>
+								<% end %>
+							<% end %>
+		        </div>
+						<!--end: BOX CONTENT-->
+					</div>
+					<!--end: BOX-->
+
+					<br><br>
+					<% if current_user.has_role? :team_owner, @team %>
+						<%= link_to 'Edit Team', edit_team_path(@team), class: "btn btn-primary" %>
+					<% end %>
+					<%= spaces(5).html_safe %>
+				<% end %>
+
+				<%= link_to 'Back', teams_path, class: "btn btn-primary" %>
+			</div>
+    </div>
+  </div>
+</div>  

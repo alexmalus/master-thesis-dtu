@@ -1,0 +1,7 @@
+<h4>Edit Epic</h4>
+
+<%= render 'form', epic: @epic %>
+
+<br>
+<%= link_to 'Close', {controller: "product_backlogs", action: "close_popup"},
+ remote: true, class: "btn btn-primary" %>

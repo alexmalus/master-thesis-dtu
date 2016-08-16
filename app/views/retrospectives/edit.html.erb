@@ -1,0 +1,7 @@
+<% if current_user.has_role? :member, @project %>	
+
+<h1>Editing Retrospective</h1>
+
+<%= render 'form' %>
+
+<% end %>
